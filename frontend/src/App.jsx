@@ -26,7 +26,7 @@ function App() {
       return;
     }
 
-    await fetch("https://lead-management-backend-im11.onrender.com/api/leads", {
+    await fetch("https://lead-management-backend-imll.onrender.com/api/leads", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -38,7 +38,7 @@ function App() {
 
   //Admin Login 
   const adminLogin = async () => {
-    const res = await fetch("https://lead-management-backend-im11.onrender.com/api/login", {
+    const res = await fetch("https://lead-management-backend-imll.onrender.com/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -50,7 +50,7 @@ function App() {
     if (res.ok) {
       setIsAdmin(true);
 
-      const leadsRes = await fetch("https://lead-management-backend-im11.onrender.com/api/leads");
+      const leadsRes = await fetch("https://lead-management-backend-imll.onrender.com/api/leads");
       const data = await leadsRes.json();
       setLeads(data);
     } else {
