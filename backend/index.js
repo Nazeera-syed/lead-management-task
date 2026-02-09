@@ -4,7 +4,16 @@ const cors = require("cors");
 const app = express();
 
 // ✅ Middleware
-app.use(cors());             
+app.use(
+  cors({
+    origin: "https://lead-management-task.vercel.app",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
+app.use(express.json());
+             
 app.use(express.json());      
 
 // ✅ Dummy in-memory data
