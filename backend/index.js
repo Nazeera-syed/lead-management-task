@@ -2,42 +2,45 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"]
-}));
-app.use(express.json());
 
-app.options("*", cors());
+// ✅ Middleware
+app.use(cors());             
+app.use(express.json());      
 
-// Dummy in-memory data
+// ✅ Dummy in-memory data
 let leads = [];
 
-// Create lead
+// ✅ Create lead
 app.post("/api/leads", (req, res) => {
-  leads.push(req.body);
-  res.json({ message: "Lead created successfully" });
+  const lead = req.body;
+
+  if (!lead.name || !lead.email || !lead.phone || !lead.service) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  leads.push(lead);
+  res.status(200).json({ message: "Lead created successfully" });
 });
 
-// Fetch all leads
+// ✅ Fetch all leads
 app.get("/api/leads", (req, res) => {
-  res.json(leads);
+  res.status(200).json(leads);
 });
 
-// Simple admin login
+// ✅ Simple admin login
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
+
   if (username === "admin" && password === "admin123") {
-    res.json({ success: true });
+    res.status(200).json({ success: true });
   } else {
     res.status(401).json({ success: false });
   }
 });
+
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Backend running on port ${PORT}`);
 });
-
